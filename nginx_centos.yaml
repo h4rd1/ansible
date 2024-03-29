@@ -7,4 +7,6 @@
   tasks:
     - dnf:
         name: nginx
+        
+  when: ansible_facts['distribution'] == "CentOS"
 ...        
