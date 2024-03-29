@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+
 ---
 - hosts: all
   gather_facts: true
@@ -7,14 +7,4 @@
   tasks:
     - dnf:
         name: nginx
-=======
----
-- hosts: all
-  gather_facts: true
-  become: true
-  become_user: root
-  tasks:
-    - dnf:
-        name: nginx
->>>>>>> Stashed changes
-...   
+...        
