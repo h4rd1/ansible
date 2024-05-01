@@ -1,0 +1,20 @@
+---
+- name: “Install docker”
+  hosts: all
+  become: true
+  vars:
+    packages:
+     - python3
+     - python3-pip
+     - python3-setuptools
+     - libselinux-python3
+  tasks:
+    - name: “create yum repository for docker”
+      ansible.builtin.yum_repository:
+        name: docker-repo 
+        description: “repo for docker”
+        baseurl: “https://download.docker.com/linux/centos/7/x86_64/stable/”
+        enabled: yes
+        gpgcheck: no
+
+...

@@ -1,0 +1,24 @@
+---
+- hosts: test
+  become: false
+
+  tasks:
+#    - name: Install Docker Module for Python
+ #     pip:
+  #      name: docker
+
+    - name: Pull default Docker image
+      community.docker.docker_image:
+        name: ubuntu
+        source: pull
+
+    - name: Create default containers
+      community.docker.docker_container:
+        name: test
+        image: ubuntu
+        command: sleep
+        state: present
+
+
+
+...
