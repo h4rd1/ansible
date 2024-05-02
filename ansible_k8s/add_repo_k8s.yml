@@ -1,4 +1,11 @@
 - name: "add repo"
   hosts: all
-  tastk:
+  tasks:
+    - name: “create yum repository”
+      ansible.builtin.yum_repository:
+        name: kubernetis 
+        description: “k8s”
+        baseurl: “https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/”
+        enabled: yes
+        gpgcheck: no
 
