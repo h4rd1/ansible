@@ -1,7 +1,7 @@
 - name: "add repo"
   hosts: all
   tasks:
-    - name: “create yum repository”
+    - name: “create yum repository k8s”
       ansible.builtin.yum_repository:
         name: kubernetis 
         description: “k8s”
