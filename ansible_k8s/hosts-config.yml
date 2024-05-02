@@ -6,19 +6,19 @@
   tasks: 
       - lineinfile:
          path: /etc/hosts
-         line: "192.168.88.25 k8smasternode01"
+         line: "192.168.88.XX node01"
          insertafter: EOF
          state: present
          
       - lineinfile:
          path: /etc/hosts
-         line: "192.168.88.26 k8snode02"
+         line: "192.168.88.XX node02"
          insertafter: EOF
          state: present
          
       - lineinfile:
          path: /etc/hosts
-         line: "192.168.88.27 k8snode03"
+         line: "192.168.88.XX node03"
          insertafter: EOF
          state: present
 
