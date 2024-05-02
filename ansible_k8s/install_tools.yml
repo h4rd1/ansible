@@ -12,4 +12,5 @@
           - vim
           - bash-completion
           - tmux
-          - make  
+          - make
+          - go
