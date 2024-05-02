@@ -1,0 +1,30 @@
+---
+- name: "hosts add"
+  hosts: all
+  become: true
+  gather_facts: no
+  tasks: 
+      - lineinfile:
+         path: /etc/hosts
+         line: "192.168.88.25 k8smasternode01"
+         insertafter: EOF
+         state: present
+         
+      - lineinfile:
+         path: /etc/hosts
+         line: "192.168.88.26 k8snode02"
+         insertafter: EOF
+         state: present
+         
+      - lineinfile:
+         path: /etc/hosts
+         line: "192.168.88.27 k8snode03"
+         insertafter: EOF
+         state: present
+
+
+
+
+
+
+...

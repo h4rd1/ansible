@@ -1,0 +1,14 @@
+- name: "Отключение swap с помощью Ansible"
+  hosts: all
+  tasks:
+    - name: "Остановить все области свопа"
+      command: swapoff -a
+      become: yes
+
+    - name: "Удалить все записи об областях свопа из файла fstab"
+      replace:
+        path: /etc/fstab
+        regexp: '^.*swap.*$'
+        replace: ''
+        backup: yes
+      become: yes

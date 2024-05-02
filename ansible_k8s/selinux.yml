@@ -1,0 +1,13 @@
+---
+- name: selinux
+  hosts: all
+  tasks:
+    - name: "selinux 0"
+      selinux:
+        policy: targeted
+        state: disabled
+    - name: "reboot"
+      ansible.builtin.reboot:
+
+...
+

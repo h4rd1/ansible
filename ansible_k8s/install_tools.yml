@@ -1,0 +1,15 @@
+- name: "install tools"
+  hosts: all
+  tasks:
+    - name: Install dnf utils
+      dnf:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+          - yum-utils
+          - wget
+          - curl
+          - vim
+          - bash-completion
+          - tmux
+          - make  

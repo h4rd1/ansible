@@ -1,0 +1,21 @@
+- name: "Firewall setting"
+  hosts: all
+  tasks:
+    - name: "Разрешить доступ к нескольким портам"
+      firewalld:
+        port: "{{ item }}/tcp"
+        permanent: yes
+        state: enabled
+        immediate: yes
+      with_items:
+        - 6643
+        - 2379
+        - 2380
+        - 10250
+        - 10251
+        - 10259
+        - 10257
+        - 179
+        - 4789
+        - 3000-32767
+
