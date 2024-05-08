@@ -1,0 +1,58 @@
+---
+- name: install docker
+  gather_facts: false
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Remove docker if installed from CentOS repo
+    dnf:
+        name: "{{ item }}"
+        state: removed
+    with_items:
+        - docker
+        - docker-client
+        - docker-client-latest
+        - docker-common
+        - docker-latest
+        - docker-latest-logrotate
+        - docker-logrotate
+        - docker-engine
+        - podman
+        - runc
+
+  - name: Add Docker repo
+    get_url:
+       url: https://download.docker.com/linux/centos/docker-ce.repo
+       dest: /etc/yum.repos.d/docker-ce.repo
+
+  - name: Install Docker
+    dnf:
+     name: docker-ce
+     state: latest
+
+  - name: Start Docker service
+    service:
+     name: docker
+     state: started
+     enabled: yes
+
+     # - name: Install Docker Module for Python
+     #pip:
+     # name: docker
+
+
+  #- name: Add user h4rd to docker group
+  #  user:
+  #      name: h4rd
+  #      groups: docker
+  #      append: yes
+
+  - name: docker-compose
+    get_url:
+     url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+     dest: /usr/local/bin/docker-compose
+     mode: 'u+x,g+x'
+
+...
+
