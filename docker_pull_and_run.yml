@@ -1,0 +1,17 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    img_names:
+      - consul
+      - vault
+  tasks:
+  - name: pull an image
+    docker_image:
+      name: "{{ item }}"
+      source: pull
+    loop: "{{ img_names }}"
+  - name: Create containers
+    docker_container:
+      name: "{{ item }}"
+      image: "{{ item }}"
+    loop: "{{ img_names }}"
