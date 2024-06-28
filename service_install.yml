@@ -1,15 +1,15 @@
 ---
-- name: install docker
+- name: Install Docker and Docker Compose on CentOS
   gather_facts: false
-  hosts: test
+  hosts: all
   become: true
 
   tasks:
-  - name: Remove docker if installed from CentOS repo
-    dnf:
+    - name: Remove Docker if installed from CentOS repo
+      dnf:
         name: "{{ item }}"
         state: removed
-    with_items:
+      with_items:
         - docker
         - docker-client
         - docker-client-latest
@@ -21,46 +21,37 @@
         - podman
         - runc
 
-  - name: Install dnf utils
-    dnf:
-      name: "{{ item }}"
-      state: latest
-    with_items:
-         - yum-utils
-         - device-mapper-persistent-data
-         - lvm2
+    - name: Add Docker repo
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
 
-  - name: Add Docker repo
-    get_url:
-       url: https://download.docker.com/linux/centos/docker-ce.repo
-       dest: /etc/yum.repos.d/docker-ce.repo
+    - name: Install Docker
+      dnf:
+        name: docker-ce
+        state: latest
 
-  - name: Install Docker
-    dnf:
-     name: docker-ce
-     state: latest
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
 
-  - name: Start Docker service
-    service:
-     name: docker
-     state: started   
-     enabled: yes
+    #- name: Install Docker Module for Python
+    #pip:
+    #  name: docker
 
- - name: Install Docker Module for Python
-   pip:
-      name: docker
+    #- name: Add user h4rd to docker group
+    #user:
+    #  name: h4rd
+    #  groups: docker
+    #  append: yes
 
- 
-  #- name: Add user h4rd to docker group
-  #  user:
-  #      name: h4rd
-  #      groups: docker
-  #      append: yes
+    - name: Install Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 'u+x,g+x'
 
-  - name: docker-compose
-    get_url:
-     url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
-     dest: /usr/local/bin/docker-compose
-     mode: 'u+x,g+x'
 
 ...
