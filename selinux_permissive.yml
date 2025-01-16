@@ -1,0 +1,12 @@
+---
+- name: selinux
+  hosts: all
+  become: yes
+  tasks:
+    - name: "Перевод selinux в permissive"
+      selinux:
+        policy: targeted
+        state: permissive
+    - name: "reboot"
+      ansible.builtin.reboot:
+...
